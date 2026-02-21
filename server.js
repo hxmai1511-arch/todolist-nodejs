@@ -35,8 +35,6 @@ app.get("/", async (req, res) => {
   res.render("index", { tasks, users });
 });
 
-/* ================= ADMIN TẠO TASK ================= */
-
 app.post("/add-task", async (req, res) => {
   const { title, assignedTo } = req.body;
 
@@ -53,8 +51,6 @@ app.post("/add-task", async (req, res) => {
 
   res.redirect("/");
 });
-
-/* ================= USER HOÀN THÀNH TASK ================= */
 
 app.post("/complete-task/:id", async (req, res) => {
   const task = await Task.findById(req.params.id);
