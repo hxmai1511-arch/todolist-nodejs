@@ -15,9 +15,6 @@ app.set("views", "./views");
 mongoose.connect("mongodb://127.0.0.1:27017/todo_app")
   .then(() => console.log("MongoDB Connected"));
 
-/* ================= USER ================= */
-
-// Tạo user
 app.post("/users", async (req, res) => {
   try {
     const user = await User.create(req.body);
@@ -27,9 +24,6 @@ app.post("/users", async (req, res) => {
   }
 });
 
-/* ================= TRANG CHÍNH ================= */
-
-// Giả lập user hiện tại (demo)
 const CURRENT_USER_ID = "6999d7986536fe45b2d3d0fd";
 
 app.get("/", async (req, res) => {
@@ -42,7 +36,6 @@ app.get("/", async (req, res) => {
   res.render("index", { tasks, users });
 });
 
-/* ================= ADMIN TẠO TASK ================= */
 
 app.post("/add-task", async (req, res) => {
   const { title, assignedTo } = req.body;
@@ -61,8 +54,6 @@ app.post("/add-task", async (req, res) => {
   res.redirect("/");
 });
 
-/* ================= USER HOÀN THÀNH TASK ================= */
-
 app.post("/complete-task/:id", async (req, res) => {
   const task = await Task.findById(req.params.id);
 
@@ -77,8 +68,6 @@ app.post("/complete-task/:id", async (req, res) => {
   await task.save();
   res.redirect("/");
 });
-
-/* ================= XÓA TASK ================= */
 
 app.post("/delete-task/:id", async (req, res) => {
   await Task.findByIdAndDelete(req.params.id);
